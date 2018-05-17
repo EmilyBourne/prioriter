@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="MainIcon">images/256x256.svg</file>
+        <file alias="HighJobs">images/HighJobs.svg</file>
+        <file alias="LowJobs">images/LowJobs.svg</file>
+        <file alias="MediumJobs">images/MediumJobs.svg</file>
+        <file alias="NoJobs">images/NoJobs.svg</file>
+        <file alias="RedHighJobs">images/RedHighJobs.svg</file>
+    </qresource>
+</RCC>
