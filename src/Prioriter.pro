@@ -13,6 +13,7 @@ TARGET = prioriter
 MOC_DIR = ../src
 UI_HEADERS_DIR = ../src
 UI_SOURCES_DIR = ../src
+CONFIG += c11
 
 #RC_ICONS = ../images/Sknife.ico
 
