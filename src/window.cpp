@@ -314,7 +314,7 @@ void Window::removeJob(jobTreeItem* jobPtr) {
 }
 
 void Window::AddJobPopUp(jobOverlord* index) {
-    AddJob jobPopup(overlordList,index);
+    AddNewJob jobPopup(overlordList,index);
     jobPopup.exec();
     if (jobPopup.result()) {
         bool addedToOverlord(jobPopup.addToOverlord(overlordList));
