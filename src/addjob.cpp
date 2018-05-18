@@ -14,7 +14,11 @@ AddNewJob::AddNewJob(std::vector<jobOverlord*> const& overlords,jobOverlord* ind
     deadlineEdit->setCalendarPopup(true);
     for (size_t i(0); i<overlords.size(); ++i) {
         overlordList->addItem(overlords[i]->BigName().c_str());
-        if (overlords[i]==index) overlordList->setCurrentIndex(i+1);
+        if (overlords[i]==index) {
+            overlordList->setCurrentIndex(i+1);
+            deadlineEdit->setDate(index->due().date());
+            deadlineEdit->setTime(index->due().time());
+        }
     }
     QObject::connect(buttonBox, SIGNAL(accepted()), this, SLOT(makeJob()));
 }
