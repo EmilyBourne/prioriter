@@ -84,7 +84,7 @@ jobTreeItem::jobTreeItem(const jobTreeItem& t)
 
 void jobTreeItem::reconnect() {
     connect(this,SIGNAL(killInWindow(jobTreeItem*)),mainWindow,SLOT(removeJob(jobTreeItem*)));
-    connect(this,SIGNAL(editJobPopup(jobTreeItem*)),mainWindow,SLOT(editJob(jobTreeItem*)));
+    //connect(this,SIGNAL(editJobPopup(jobTreeItem*)),mainWindow,SLOT(editJob(jobTreeItem*)));
     connect(myWidget->treeWidget()->itemWidget(myWidget,3),SIGNAL(clicked()),this,SLOT(editJob()));
 }
 
