@@ -4,7 +4,7 @@
 #include <string>
 #include <QCalendarWidget>
 
-AddJob::AddJob(std::vector<jobOverlord*> const& overlords,jobOverlord* index)
+AddNewJob::AddNewJob(std::vector<jobOverlord*> const& overlords,jobOverlord* index)
     : job(nullptr), posInOverlord(-1)
 {
     setupUi(this);
@@ -19,11 +19,11 @@ AddJob::AddJob(std::vector<jobOverlord*> const& overlords,jobOverlord* index)
     QObject::connect(buttonBox, SIGNAL(accepted()), this, SLOT(makeJob()));
 }
 
-AddJob::~AddJob() {
+AddNewJob::~AddNewJob() {
 
 }
 
-void AddJob::makeJob() {
+void AddNewJob::makeJob() {
     std::string name(nameEdit->text().toStdString());
     Priority p(Priority(priorityEdit->currentIndex()));
 
@@ -35,7 +35,7 @@ void AddJob::makeJob() {
     }
 }
 
-bool AddJob::addToOverlord(std::vector<jobOverlord*> const& heads) {
+bool AddNewJob::addToOverlord(std::vector<jobOverlord*> const& heads) {
     std::string Dad(overlordList->currentText().toStdString());
     if (Dad=="") {
         return false;

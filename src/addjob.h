@@ -4,12 +4,12 @@
 #include "job.h"
 #include <vector>
 
-class AddJob: public QDialog, protected Ui::addJob
+class AddNewJob: public QDialog, protected Ui::addJob
 {
     Q_OBJECT
 public:
-    AddJob(const std::vector<jobOverlord*> &overlords,jobOverlord*);
-    ~AddJob();
+    AddNewJob(const std::vector<jobOverlord*> &overlords,jobOverlord*);
+    ~AddNewJob();
     Job* getJob() const {return job; }
     bool addToOverlord(std::vector<jobOverlord*> const&);
     int getPosInOverlord() {return posInOverlord; }
