@@ -6,5 +6,9 @@
         <file alias="MediumJobs">images/MediumJobs.svg</file>
         <file alias="NoJobs">images/NoJobs.svg</file>
         <file alias="RedHighJobs">images/RedHighJobs.svg</file>
+        <file alias="HighJobsWindows">images/HighJobsWindows.svg</file>
+        <file alias="LowJobsWindows">images/LowJobsWindows.svg</file>
+        <file alias="MediumJobsWindows">images/MediumJobsWindows.svg</file>
+        <file alias="NoJobsWindows">images/NoJobsWindows.svg</file>
     </qresource>
 </RCC>

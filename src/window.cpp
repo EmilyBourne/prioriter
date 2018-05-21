@@ -157,6 +157,7 @@ void Window::createTrayIcon(Priority jobPriorities,long nearestDeadline)
     trayIconMenu = new QMenu(this);
 
     trayIcon = new QSystemTrayIcon(this);
+#ifdef __linux__
     switch(jobPriorities) {
         case UNKNOWN: trayIcon->setIcon(QIcon(":/NoJobs")); break;
         case LOW: trayIcon->setIcon(QIcon(":/LowJobs")); break;
@@ -173,6 +174,24 @@ void Window::createTrayIcon(Priority jobPriorities,long nearestDeadline)
             }
         }
     }
+#else
+    switch(jobPriorities) {
+        case UNKNOWN: trayIcon->setIcon(QIcon(":/NoJobsWindows")); break;
+        case LOW: trayIcon->setIcon(QIcon(":/LowJobsWindows")); break;
+        case MEDIUM: 
+        case HIGH: {
+            if (nearestDeadline<7200) {
+                trayIcon->setIcon(QIcon(":/RedHighJobsWindows")); break;
+            }
+            else if (nearestDeadline<172800) {
+                trayIcon->setIcon(QIcon(":/HighJobsWindows")); break;
+            }
+            else {
+                trayIcon->setIcon(QIcon(":/MediumJobsWindows")); break;
+            }
+        }
+    }
+#endif
     QByteArray category = qgetenv("SNI_CATEGORY");
     if (!category.isEmpty()) {
         trayIcon->setProperty("_qt_sni_category", QString::fromLocal8Bit(category));
@@ -257,6 +276,7 @@ void Window::rebuildTrayIconMenu() {
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(showWindow);
     trayIconMenu->addAction(quitAction);
+#ifdef __linux__
     switch(jobPriorities) {
         case UNKNOWN: trayIcon->setIcon(QIcon(":/NoJobs")); break;
         case LOW: trayIcon->setIcon(QIcon(":/LowJobs")); break;
@@ -273,6 +293,24 @@ void Window::rebuildTrayIconMenu() {
             }
         }
     }
+#else
+    switch(jobPriorities) {
+        case UNKNOWN: trayIcon->setIcon(QIcon(":/NoJobsWindows")); break;
+        case LOW: trayIcon->setIcon(QIcon(":/LowJobsWindows")); break;
+        case MEDIUM: 
+        case HIGH: {
+            if (nearestDeadline<7200) {
+                trayIcon->setIcon(QIcon(":/RedHighJobsWindows")); break;
+            }
+            else if (nearestDeadline<172800) {
+                trayIcon->setIcon(QIcon(":/HighJobsWindows")); break;
+            }
+            else {
+                trayIcon->setIcon(QIcon(":/MediumJobsWindows")); break;
+            }
+        }
+    }
+#endif
 }
 
 void Window::rebuildTree() {
