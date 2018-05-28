@@ -1,15 +1,15 @@
 # prioriter
 System-tray based program to keep track of jobs and prioritise based on importance and urgence.
 
-![The Edit Window](/ExampleImages/PrioriterEmpty.png)
+![Basic Prioriter Icon](/ExampleImages/PrioriterEmpty.png)
 
 The icon will change depending upon the importance of the jobs within:
 
-![The Edit Window](/ExampleImages/PrioriterBar.png)
+![Prioriter Icon when there are high priority/urgent jobs](/ExampleImages/PrioriterBar.png)
 
 and will go red when a job becomes very very urgent:
 
-![The Edit Window](/ExampleImages/PrioriterUrgent.png)
+![Prioriter Icon when jobs should definitely not be ignored](/ExampleImages/redPrioriter.png)
 
 Jobs can also be edited from a window:
 
