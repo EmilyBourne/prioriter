@@ -202,8 +202,8 @@ bool compare(std::string const& str1,std::string const& str2) {
         char c1(str1[i1]);
         char c2(str2[i2]);
         if (c1<='9' && c1>='0' && c2<='9' && c2>='0') {
-            char num1[20]("");
-            char num2[20]("");
+            char num1[20] = "";
+            char num2[20] = "";
             int n1(0);
             int n2(0);
             while (c1<='9' && c1>='0' && i1!=str1.size()) {

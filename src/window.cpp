@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <QLocale>
 #include "editjob.h"
+#include <stdexcept>
 
 Window::Window()
 {
