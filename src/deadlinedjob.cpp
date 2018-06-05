@@ -182,7 +182,7 @@ deadlinedJob* deadlinedJob::makeJob(Job* j) {
 }
 
 void deadlinedJob::setPriority(Priority p) {
-    if (priorite==p) {
+    if (priorite!=p) {
         priorite=p;
         getPriorityChange();
     }
