@@ -4,8 +4,8 @@
 #include <string>
 #include <QCalendarWidget>
 
-AddNewJob::AddNewJob(std::vector<jobOverlord*> const& overlords,jobOverlord* index)
-    : job(nullptr), posInOverlord(-1)
+AddNewJob::AddNewJob(std::vector<jobOverlord*> const& overList,jobOverlord* index)
+    : job(nullptr), posInOverlord(-1), dateChosen(false), overlords(overList)
 {
     setupUi(this);
     priorityEdit->setCurrentIndex(1);
@@ -13,7 +13,7 @@ AddNewJob::AddNewJob(std::vector<jobOverlord*> const& overlords,jobOverlord* ind
     deadlineEdit->setTime(QTime::currentTime());
     deadlineEdit->setCalendarPopup(true);
     for (size_t i(0); i<overlords.size(); ++i) {
-        overlordList->addItem(overlords[i]->BigName().c_str());
+        overlordList->addItem(overList[i]->BigName().c_str());
         if (overlords[i]==index) {
             overlordList->setCurrentIndex(i+1);
             deadlineEdit->setDate(index->due().date());
@@ -21,10 +21,26 @@ AddNewJob::AddNewJob(std::vector<jobOverlord*> const& overlords,jobOverlord* ind
         }
     }
     QObject::connect(buttonBox, SIGNAL(accepted()), this, SLOT(makeJob()));
+    QObject::connect(deadlineEdit, SIGNAL(dateTimeChanged(const QDateTime &)), this, SLOT(dateChoose(const QDateTime &)));
+    QObject::connect(overlordList, SIGNAL(currentIndexChanged(int)), this, SLOT(changeOverlord(int)));
 }
 
 AddNewJob::~AddNewJob() {
 
+}
+
+void AddNewJob::dateChoose(const QDateTime & ) {
+    dateChosen=true;
+    std::cout << "chosen" << std::endl;
+}
+
+void AddNewJob::changeOverlord(int index) {
+    if (!dateChosen) {
+        jobOverlord* overlord (overlords[index-1]);
+        QObject::disconnect(deadlineEdit, SIGNAL(dateTimeChanged(const QDateTime &)), this, SLOT(dateChoose(const QDateTime &)));
+        deadlineEdit->setDateTime(overlord->due());
+        QObject::connect(deadlineEdit, SIGNAL(dateTimeChanged(const QDateTime &)), this, SLOT(dateChoose(const QDateTime &)));
+    }
 }
 
 void AddNewJob::makeJob() {

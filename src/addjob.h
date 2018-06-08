@@ -15,9 +15,13 @@ public:
     int getPosInOverlord() {return posInOverlord; }
 private slots:
     void makeJob();
+    void dateChoose(const QDateTime & );
+    void changeOverlord(int index);
 private:
     Job* job;
     int posInOverlord;
+    bool dateChosen;
+    std::vector<jobOverlord*> const& overlords;
 };
 
 #endif // ADDJOB_H
