@@ -35,7 +35,8 @@ SOURCES += \
     addjob.cpp \
     addoverlord.cpp \
     jobtreeitem.cpp \
-    editjob.cpp
+    editjob.cpp \
+    recurringmanager.cpp
 
 HEADERS +=\
     job.h \
@@ -46,7 +47,9 @@ HEADERS +=\
     addjob.h \
     addoverlord.h \
     jobtreeitem.h \
-    editjob.h
+    editjob.h \
+    recurringmanager.h \
+    priority.h
 
 RESOURCES += \
     resources.qrc

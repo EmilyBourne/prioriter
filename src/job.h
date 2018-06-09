@@ -5,17 +5,11 @@
 #include <QMenu>
 //#include <QVariant>
 #include <QDateTime>
+#include "priority.h"
 
 std::ostream& operator<<(std::ostream&, QDateTime const&);
 
 class jobTreeItem;
-
-enum Priority {
-    HIGH = 2,
-    MEDIUM = 1,
-    LOW = 0,
-    UNKNOWN = -1
-};
 
 class deadlinedJob;
 class jobOverlord;
