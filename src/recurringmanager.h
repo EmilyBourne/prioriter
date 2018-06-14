@@ -2,6 +2,7 @@
 #define RECURRINGMANAGER_H
 #include <QDateTime>
 #include "job.h"
+#include "priority.h"
 
 class recurringManager
 {
@@ -18,6 +19,8 @@ private:
     int days;
     int months;
     int years;
+    Priority priorite;
+    std::string jobName;
 };
 
 #endif // RECURRINGMANAGER_H
