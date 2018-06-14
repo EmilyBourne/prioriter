@@ -428,7 +428,7 @@ void jobTreeItem::toSimple() {
             for (auto child: children) {
                 delete child;
             }
-            Job* newJob;
+            Job* newJob(nullptr);
             if (myJob->hasFixedDeadline()) {
                 newJob = new deadlinedJob(*dynamic_cast<deadlinedJobOverlord*>(myJob));
             }
@@ -448,7 +448,7 @@ void jobTreeItem::toSimple() {
         }
         else if (question.clickedButton() == dispButt) {
             displaceJobs();
-            Job* newJob;
+            Job* newJob(nullptr);
             if (myJob->hasFixedDeadline()) {
                 newJob = new deadlinedJob(*dynamic_cast<deadlinedJobOverlord*>(myJob));
             }
@@ -468,9 +468,9 @@ void jobTreeItem::toSimple() {
         }
     }
     else {
-        Job* newJob;
+        Job* newJob(nullptr);
         if (myJob->hasFixedDeadline()) {
-            (*dynamic_cast<deadlinedJobOverlord*>(myJob));
+            newJob = new deadlinedJob(*dynamic_cast<deadlinedJobOverlord*>(myJob));
         }
         else {
             newJob = new Job(*myJob);
