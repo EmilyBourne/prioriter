@@ -21,6 +21,9 @@ export EXPORTED_VARS $(EXPORTED_VARS)
 
 all: tests
 
+check: tests
+	sh build/run_tests.sh
+
 tests:
 	@echo "Making src/"
 ifeq ($(VERBOSE),1)
