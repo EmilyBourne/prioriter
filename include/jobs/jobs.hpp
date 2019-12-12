@@ -3,6 +3,7 @@
 
 #include <priority.hpp>
 #include <job_interface.hpp>
+#include <set>
 
 class Jobs: public JobInterface
 {
@@ -20,7 +21,7 @@ class Jobs: public JobInterface
         double getMultiplicationFactor() {return multiplication_factor; }
         void setMultiplicationFactor(double mf) {multiplication_factor=mf; }
         double multiplication_factor;
-        //list<JobInterface*> jobsWaitingForMe;
+        std::set<JobInterface*, CompareJobs> jobsWaitingForMe;
         virtual int doAfter(JobInterface*) override;
 };
 

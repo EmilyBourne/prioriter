@@ -22,4 +22,8 @@ class JobInterface {
         virtual int doAfter(JobInterface*) = 0;
 };
 
+struct CompareJobs {
+    bool operator() (JobInterface*, JobInterface*) const;
+};
+
 #endif // JOB_INTERFACE_H

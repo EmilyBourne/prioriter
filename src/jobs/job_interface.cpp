@@ -14,3 +14,8 @@ bool JobInterface::compareJobs(JobInterface* a, JobInterface* b)
      */
     return b->doAfter(a) < 0;
 }
+
+bool CompareJobs::operator() (JobInterface* a, JobInterface* b) const
+{
+    return JobInterface::compareJobs(a,b);
+}
