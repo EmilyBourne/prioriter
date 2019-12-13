@@ -24,3 +24,13 @@ TEST_CASE( "Compare different length" )
     CHECK(compare("hell","world")==-1);
     CHECK(compare("a","bcdl")==-1);
 }
+
+TEST_CASE( "Compare numeric" )
+{
+    CHECK(compare("11111","11112")==-1);
+    CHECK(compare("10000","01111")==1);
+    CHECK(compare("5000","10000")==-1);
+    CHECK(compare("exo1","exo10")==-1);
+    CHECK(compare("exo 1","exo10")==-1);
+    CHECK(compare("1 exo","10 exo")==-1);
+}
