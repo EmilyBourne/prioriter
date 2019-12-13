@@ -54,4 +54,27 @@ TEST_CASE( "Numeric name test" )
 
 TEST_CASE( "Dependence test" )
 {
+    Jobs job1("a",LOW);
+    Jobs job2("b",MEDIUM);
+    CHECK( compare(job1, job2) == 1 );
+    {
+        std::shared_ptr<JobInterface> block1 = std::make_shared<Jobs>("c",HIGH);
+        job1.addWaitingJob(block1);
+        CHECK( compare(job1, job2) == -1 );
+        CHECK( compare(job2, job1) == 1 );
+    }
+    {
+        std::shared_ptr<JobInterface> block1 = std::make_shared<Jobs>("c",LOW);
+        job1.addWaitingJob(block1);
+        CHECK( compare(job1, job2) == 1 );
+        CHECK( compare(job2, job1) == -1 );
+    }
+    {
+        std::shared_ptr<JobInterface> block1 = std::make_shared<Jobs>("c",HIGH);
+        std::shared_ptr<JobInterface> block2 = std::make_shared<Jobs>("c",LOW);
+        job1.addWaitingJob(block1);
+        job1.addWaitingJob(block2);
+        CHECK( compare(job1, job2) == -1 );
+        CHECK( compare(job2, job1) == 1 );
+    }
 }
