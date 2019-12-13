@@ -1,7 +1,5 @@
 #include <jobs.hpp>
-#include <deadlined_jobs.hpp>
-#include <job_group.hpp>
-#include <string_tools.hpp>
+#include <job_comparisons.hpp>
 
 Jobs::Jobs(std::string const& name, Priority priority)
     : m_name(name), m_priority(priority)
@@ -22,41 +20,23 @@ Priority Jobs::getPriority() const
     return m_priority;
 }
 
-int Jobs::doBefore(Jobs const& j) const
+int Jobs::compare_with(std::shared_ptr<JobInterface> const& j) const
 {
-    /*
-     * return values:
-     * -1 : do this first
-     *  0 : equivalent
-     *  1 : do j first
-     */
-    if (getPriority() != j.getPriority())
-    {
-        return compare(getPriority(), j.getPriority());
-    }
-    else
-    {
-        return compare(getName(), j.getName());
-    }
+    compare(*this,j);
 }
 
-int Jobs::doBefore(DeadlinedJobs const& j) const
+int Jobs::compare_with(Jobs const& j) const
 {
-    return -j.doBefore(*this);
+    compare(*this,j);
 }
 
-int Jobs::doBefore(JobGroup const& j) const
+int Jobs::compare_with(DeadlinedJobs const& j) const
 {
-    return -j.doBefore(*this);
+    compare(*this,j);
 }
 
-int Jobs::doAfter(JobInterface* a)
+int Jobs::compare_with(JobGroup const& j) const
 {
-    /*
-     * return values:
-     *  1 : do this first
-     *  0 : equivalent
-     * -1 : do a first
-     */
-    return a->doBefore(*this);
+    compare(*this,j);
 }
+

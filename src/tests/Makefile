@@ -1,7 +1,7 @@
 
 all: $(addprefix $(TEST_DIR)/, $(TESTS))
 
-$(TEST_DIR)/test_jobs: test_jobs.cpp $(addprefix $(OBJ_DIR)/, job_interface.o jobs.o priority.o string_tools.o)
+$(TEST_DIR)/test_jobs: test_jobs.cpp $(addprefix $(OBJ_DIR)/, job_interface.o jobs.o priority.o string_tools.o job_comparisons.o)
 	@echo "Making     "$<
 ifeq ($(VERBOSE), 1)
 	$(CXX) $(CXXFLAGS) $(TINC) $^ -o $@

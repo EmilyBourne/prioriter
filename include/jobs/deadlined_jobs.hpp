@@ -10,11 +10,10 @@ class DeadlinedJobs: public Jobs
         DeadlinedJobs(std::string const& name, Priority priority);
         virtual std::string getName() const;
         virtual Priority getPriority() const;
-        virtual int doBefore(Jobs const&) const;
-        virtual int doBefore(DeadlinedJobs const&) const;
-        virtual int doBefore(JobGroup const&) const;
-    protected:
-        virtual int doAfter(JobInterface*) override;
+        virtual int compare_with(std::shared_ptr<JobInterface> const&) const override;
+        virtual int compare_with(Jobs const&) const override;
+        virtual int compare_with(DeadlinedJobs const&) const override;
+        virtual int compare_with(JobGroup const&) const override;
 };
 
 #endif // DEADLINED_JOBS_H

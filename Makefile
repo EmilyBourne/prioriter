@@ -1,7 +1,7 @@
 VERBOSE=0
 
 CXX := g++
-CXXFLAGS := --std=c++11
+CXXFLAGS := --std=c++11 -Wall
 INCLUDE := include \
 	include/jobs \
 	include/tools

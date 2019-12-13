@@ -3,7 +3,6 @@
 
 #include <priority.hpp>
 #include <job_interface.hpp>
-#include <set>
 
 class Jobs: public JobInterface
 {
@@ -12,17 +11,17 @@ class Jobs: public JobInterface
         virtual std::string getName() const override;
         virtual std::string& setName() override;
         virtual Priority getPriority() const override;
-        virtual int doBefore(Jobs const&) const override;
-        virtual int doBefore(DeadlinedJobs const&) const override;
-        virtual int doBefore(JobGroup const&) const override;
+        virtual int compare_with(std::shared_ptr<JobInterface> const&) const override;
+        virtual int compare_with(Jobs const&) const override;
+        virtual int compare_with(DeadlinedJobs const&) const override;
+        virtual int compare_with(JobGroup const&) const override;
     protected:
-        Priority m_priority;
-        std::string m_name;
         double getMultiplicationFactor() {return multiplication_factor; }
         void setMultiplicationFactor(double mf) {multiplication_factor=mf; }
+
+        std::string m_name;
+        Priority m_priority;
         double multiplication_factor;
-        std::set<JobInterface*, CompareJobs> jobsWaitingForMe;
-        virtual int doAfter(JobInterface*) override;
 };
 
 #endif // JOBS_H
