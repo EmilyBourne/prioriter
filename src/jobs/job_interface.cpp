@@ -40,7 +40,7 @@ void sort_jobs(std::list<std::weak_ptr<JobInterface>> my_list)
     my_list.sort(CompareJobs());
 }
 
-void JobInterface::addWaitingJob(std::shared_ptr<JobInterface> j)
+void JobInterface::addWaitingJob(std::weak_ptr<JobInterface> j)
 {
     auto it = jobsWaitingForMe.begin();
     bool toInsert (true);

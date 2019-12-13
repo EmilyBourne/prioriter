@@ -20,7 +20,7 @@ class JobInterface {
         virtual int compare_with(Jobs const&) const = 0;
         virtual int compare_with(DeadlinedJobs const&) const = 0;
         virtual int compare_with(JobGroup const&) const = 0;
-        void addWaitingJob(std::shared_ptr<JobInterface>);
+        void addWaitingJob(std::weak_ptr<JobInterface>);
         bool isHoldingUpJobs() const;
         void sort_waiting_jobs();
     protected:
