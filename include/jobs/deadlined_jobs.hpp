@@ -10,10 +10,10 @@ class DeadlinedJobs: public Jobs
         DeadlinedJobs(std::string const& name, Priority priority);
         virtual std::string getName() const;
         virtual Priority getPriority() const;
-        virtual int compare_with(std::shared_ptr<JobInterface> const&) const override;
-        virtual int compare_with(Jobs const&) const override;
-        virtual int compare_with(DeadlinedJobs const&) const override;
-        virtual int compare_with(JobGroup const&) const override;
+        virtual int compare_with(std::shared_ptr<const JobInterface> const&, bool = true, bool = true) const override;
+        virtual int compare_with(Jobs const&, bool = true, bool = true) const override;
+        virtual int compare_with(DeadlinedJobs const&, bool = true, bool = true) const override;
+        virtual int compare_with(JobGroup const&, bool = true, bool = true) const override;
 };
 
 #endif // DEADLINED_JOBS_H

@@ -62,13 +62,17 @@ TEST_CASE( "Dependence test" )
         job1.addWaitingJob(block1);
         CHECK( compare(job1, job2) == -1 );
         CHECK( compare(job2, job1) == 1 );
+        CHECK( compare(job1, block1) == -1 );
     }
+    job1.sort_waiting_jobs();
     {
         std::shared_ptr<JobInterface> block1 = std::make_shared<Jobs>("c",LOW);
         job1.addWaitingJob(block1);
         CHECK( compare(job1, job2) == 1 );
         CHECK( compare(job2, job1) == -1 );
+        CHECK( compare(job1, block1) == -1 );
     }
+    job1.sort_waiting_jobs();
     {
         std::shared_ptr<JobInterface> block1 = std::make_shared<Jobs>("c",HIGH);
         std::shared_ptr<JobInterface> block2 = std::make_shared<Jobs>("c",LOW);
@@ -76,5 +80,7 @@ TEST_CASE( "Dependence test" )
         job1.addWaitingJob(block2);
         CHECK( compare(job1, job2) == -1 );
         CHECK( compare(job2, job1) == 1 );
+        CHECK( compare(job1, block1) == -1 );
+        CHECK( compare(job1, block2) == -1 );
     }
 }

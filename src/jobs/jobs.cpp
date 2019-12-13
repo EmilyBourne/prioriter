@@ -20,23 +20,23 @@ Priority Jobs::getPriority() const
     return m_priority;
 }
 
-int Jobs::compare_with(std::shared_ptr<JobInterface> const& j) const
+int Jobs::compare_with(std::shared_ptr<const JobInterface> const& j, bool useDeps, bool useJDeps) const
 {
-    compare(*this,j);
+    return compare(*this,j, useDeps, useJDeps);
 }
 
-int Jobs::compare_with(Jobs const& j) const
+int Jobs::compare_with(Jobs const& j, bool useDeps, bool useJDeps) const
 {
-    compare(*this,j);
+    return compare(*this,j, useDeps, useJDeps);
 }
 
-int Jobs::compare_with(DeadlinedJobs const& j) const
+int Jobs::compare_with(DeadlinedJobs const& j, bool useDeps, bool useJDeps) const
 {
-    compare(*this,j);
+    return compare(*this,j, useDeps, useJDeps);
 }
 
-int Jobs::compare_with(JobGroup const& j) const
+int Jobs::compare_with(JobGroup const& j, bool useDeps, bool useJDeps) const
 {
-    compare(*this,j);
+    return compare(*this,j, useDeps, useJDeps);
 }
 

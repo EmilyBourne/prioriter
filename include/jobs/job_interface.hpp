@@ -13,16 +13,20 @@ class JobGroup;
 class JobInterface {
     public:
         virtual ~JobInterface();
+        JobInterface() = default;
+        JobInterface(JobInterface const&) = delete;
         virtual std::string getName() const = 0;
         virtual std::string& setName() = 0;
         virtual Priority getPriority() const = 0;
-        virtual int compare_with(std::shared_ptr<JobInterface> const&) const = 0;
-        virtual int compare_with(Jobs const&) const = 0;
-        virtual int compare_with(DeadlinedJobs const&) const = 0;
-        virtual int compare_with(JobGroup const&) const = 0;
+        virtual int compare_with(std::shared_ptr<const JobInterface> const&, bool = true, bool = true) const = 0;
+        virtual int compare_with(Jobs const&, bool = true, bool = true) const = 0;
+        virtual int compare_with(DeadlinedJobs const&, bool = true, bool = true) const = 0;
+        virtual int compare_with(JobGroup const&, bool = true, bool = true) const = 0;
         void addWaitingJob(std::weak_ptr<JobInterface>);
         bool isHoldingUpJobs() const;
         void sort_waiting_jobs();
+        std::weak_ptr<JobInterface> first_child() const;
+        bool holdingUp(JobInterface const&) const;
     protected:
         std::list<std::weak_ptr<JobInterface>> jobsWaitingForMe;
 };

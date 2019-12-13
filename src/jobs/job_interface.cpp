@@ -69,3 +69,22 @@ bool JobInterface::isHoldingUpJobs() const
 {
     return !jobsWaitingForMe.empty();
 }
+
+std::weak_ptr<JobInterface> JobInterface::first_child() const
+{
+    return *jobsWaitingForMe.begin();
+}
+
+bool JobInterface::holdingUp(JobInterface const& j) const
+{
+    for (auto it = jobsWaitingForMe.begin(); it != jobsWaitingForMe.end(); it++)
+    {
+        if (!it->expired()) {
+            if (&j == it->lock().get() or it->lock()->holdingUp(j))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
