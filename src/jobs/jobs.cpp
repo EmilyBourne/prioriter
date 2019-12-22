@@ -2,7 +2,7 @@
 #include <job_comparisons.hpp>
 
 Jobs::Jobs(std::string const& name, Priority priority)
-    : m_name(name), m_priority(priority)
+    : JobInterface(1), m_name(name), m_priority(priority)
 {}
 
 std::string Jobs::getName() const

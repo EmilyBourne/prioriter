@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest.h>
-#include <string_tools.hpp>
+#include <compare_tools.hpp>
 
 TEST_CASE( "Find equal" )
 {

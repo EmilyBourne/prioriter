@@ -1,4 +1,4 @@
-#include <string_tools.hpp>
+#include <compare_tools.hpp>
 
 int compare(std::string const& str1,std::string const& str2)
 {
@@ -34,5 +34,12 @@ int compare(std::string const& str1,std::string const& str2)
     }
     if (i1!=str1.size()) return 1;
     else if (i2!=str2.size()) return -1;
+    else return 0;
+}
+
+int compare(int const& i1,int const& i2)
+{
+    if (i1>i2) return 1;
+    else if (i1<i2) return -1;
     else return 0;
 }

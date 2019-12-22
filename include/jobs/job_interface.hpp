@@ -13,7 +13,7 @@ class JobGroup;
 class JobInterface {
     public:
         virtual ~JobInterface();
-        JobInterface() = default;
+        JobInterface(int mf);
         JobInterface(JobInterface const&) = delete;
         virtual std::string getName() const = 0;
         virtual std::string& setName() = 0;
@@ -27,14 +27,17 @@ class JobInterface {
         void sort_waiting_jobs();
         std::weak_ptr<JobInterface> first_child() const;
         bool holdingUp(JobInterface const&) const;
+        int getMultiplicationFactor() const;
     protected:
+        void setMultiplicationFactor(int mf);
         std::list<std::weak_ptr<JobInterface>> jobsWaitingForMe;
+        int multiplication_factor;
 };
 
 struct CompareJobs {
     bool operator() (std::weak_ptr<JobInterface>, std::weak_ptr<JobInterface>) const;
 };
 
-void sort_jobs(std::list<std::weak_ptr<JobInterface>>);
+void sort_jobs(std::list<std::weak_ptr<JobInterface>>&);
 
 #endif // JOB_INTERFACE_H

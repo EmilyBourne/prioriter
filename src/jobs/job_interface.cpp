@@ -1,6 +1,10 @@
 #include <job_interface.hpp>
 #include <job_comparisons.hpp>
 
+JobInterface::JobInterface(int mf)
+    : multiplication_factor(mf)
+{}
+
 JobInterface::~JobInterface()
 {}
 
@@ -20,7 +24,7 @@ void JobInterface::sort_waiting_jobs()
     sort_jobs(jobsWaitingForMe);
 }
 
-void sort_jobs(std::list<std::weak_ptr<JobInterface>> my_list)
+void sort_jobs(std::list<std::weak_ptr<JobInterface>>& my_list)
 {
     for (auto it = my_list.begin(); it != my_list.end(); )
     {
@@ -87,4 +91,11 @@ bool JobInterface::holdingUp(JobInterface const& j) const
         }
     }
     return false;
+}
+
+int JobInterface::getMultiplicationFactor() const {
+    return multiplication_factor;
+}
+void JobInterface::setMultiplicationFactor(int mf) {
+    multiplication_factor=mf;
 }

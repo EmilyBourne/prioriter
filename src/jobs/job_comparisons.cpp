@@ -1,5 +1,5 @@
 #include <job_comparisons.hpp>
-#include <string_tools.hpp>
+#include <compare_tools.hpp>
 
 /*
  * return values:
@@ -79,6 +79,10 @@ int compare(Jobs const& a, Jobs const& b, bool useADeps, bool useBDeps)
     if (a.getPriority() != b.getPriority())
     {
         return compare(a.getPriority(), b.getPriority());
+    }
+    else if (a.getMultiplicationFactor() != b.getMultiplicationFactor())
+    {
+        return -compare(a.getMultiplicationFactor(),b.getMultiplicationFactor());
     }
     else
     {
