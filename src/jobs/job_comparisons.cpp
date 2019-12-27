@@ -75,18 +75,39 @@ int compareInterface(JobInterface const& a, JobInterface const& b, bool useADeps
 int compare(Jobs const& a, Jobs const& b, bool useADeps, bool useBDeps)
 {
     int waiting_jobs = compareInterface(a,b,useADeps,useBDeps);
-    if (waiting_jobs != 0) return waiting_jobs;
-    if (a.getPriority() != b.getPriority())
+    if (waiting_jobs == 0)
     {
-        return compare(a.getPriority(), b.getPriority());
+        if (a.getPriority() != b.getPriority())
+        {
+            return compare(a.getPriority(), b.getPriority());
+        }
+        else if (a.getMultiplicationFactor() != b.getMultiplicationFactor())
+        {
+            return -compare(a.getMultiplicationFactor(),b.getMultiplicationFactor());
+        }
+        else
+        {
+            return 2 * compare(a.getName(), b.getName());
+        }
     }
-    else if (a.getMultiplicationFactor() != b.getMultiplicationFactor())
+    else if (abs(waiting_jobs) == 1)
     {
-        return -compare(a.getMultiplicationFactor(),b.getMultiplicationFactor());
+        return waiting_jobs;
     }
     else
     {
-        return compare(a.getName(), b.getName());
+        if (a.getMultiplicationFactor() != b.getMultiplicationFactor())
+        {
+            return -compare(a.getMultiplicationFactor(),b.getMultiplicationFactor());
+        }
+        else if (a.getPriority() != b.getPriority())
+        {
+            return compare(a.getPriority(), b.getPriority());
+        }
+        else
+        {
+            return 2 * compare(a.getName(), b.getName());
+        }
     }
 }
 int compare(Jobs const& a, DeadlinedJobs const& b, bool useADeps, bool useBDeps){}

@@ -21,7 +21,10 @@ bool CompareJobs::operator() (std::weak_ptr<JobInterface> a, std::weak_ptr<JobIn
 
 void JobInterface::sort_waiting_jobs()
 {
+    int nJobs = jobsWaitingForMe.size();
     sort_jobs(jobsWaitingForMe);
+    int nRemainingJobs = jobsWaitingForMe.size();
+    multiplication_factor += (nRemainingJobs - nJobs);
 }
 
 void sort_jobs(std::list<std::weak_ptr<JobInterface>>& my_list)
@@ -53,11 +56,13 @@ void JobInterface::addWaitingJob(std::weak_ptr<JobInterface> j)
         if (it->expired())
         {
             it = jobsWaitingForMe.erase(it);
+            multiplication_factor--;
         }
         else {
             if (toInsert && !compare(j, it->lock()))
             {
                 jobsWaitingForMe.insert(it,j);
+                multiplication_factor++;
                 toInsert = false;
             }
             it++;
@@ -66,6 +71,7 @@ void JobInterface::addWaitingJob(std::weak_ptr<JobInterface> j)
     if (toInsert)
     {
         jobsWaitingForMe.insert(it,j);
+        multiplication_factor++;
     }
 }
 
