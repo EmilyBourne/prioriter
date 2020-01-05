@@ -2,7 +2,7 @@
 #include <job_comparisons.hpp>
 
 DeadlinedJobs::DeadlinedJobs(std::string const& name, Priority priority, time_t doDate)
-    : Jobs(name, priority), m_deadline(doDate)
+    : Jobs(name, priority), m_deadline(doDate), m_creation_time(time(0))
 {
     getNextUpdateTime();
 }
@@ -12,10 +12,15 @@ time_t DeadlinedJobs::getDeadline() const
     return m_deadline;
 }
 
+double DeadlinedJobs::availableTime() const
+{
+    return difftime(m_creation_time, m_deadline);
+}
+
 void DeadlinedJobs::update()
 {
     time_t now = time(0);
-    double time_to_change = difftime(now, next_change);
+    double time_to_change = difftime(now, m_next_change);
     if (time_to_change > 0)
     {
         m_priority = nextPriority(m_priority);
@@ -36,7 +41,7 @@ void DeadlinedJobs::getNextUpdateTime()
         case HIGH: factor = 2.0;
     }
     double time_to_change = difftime(now, m_deadline) * factor;
-    next_change = now + time_to_change;
+    m_next_change = now + time_to_change;
 }
 
 int DeadlinedJobs::compare_with(std::shared_ptr<const JobInterface> const& j, bool useDeps, bool useJDeps) const

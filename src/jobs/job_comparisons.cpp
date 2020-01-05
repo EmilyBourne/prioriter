@@ -110,14 +110,110 @@ int compare(Jobs const& a, Jobs const& b, bool useADeps, bool useBDeps)
         }
     }
 }
-int compare(Jobs const& a, DeadlinedJobs const& b, bool useADeps, bool useBDeps){}
+int compare(Jobs const& a, DeadlinedJobs const& b, bool useADeps, bool useBDeps)
+{
+    int waiting_jobs = compareInterface(a,b,useADeps,useBDeps);
+    if (abs(waiting_jobs) == 1)
+    {
+        return waiting_jobs;
+    }
+    else
+    {
+        double remaining_time = difftime(time(0), b.getDeadline());
+        double progress = 1.0 - remaining_time / b.availableTime();
+        int deadline_factor = 10 * progress * progress;
+        int factorDiff = a.getMultiplicationFactor() - b.getMultiplicationFactor() - deadline_factor;
+        if (a.getPriority() == b.getPriority())
+        {
+            if (factorDiff > 0) return -1;
+            else if (factorDiff == 0) return 2;
+            else return 1;
+        }
+        else if (a.getPriority() == nextPriority(b.getPriority()) && factorDiff < -5)
+        {
+            return 1;
+        }
+        else
+        {
+            return compare(a.getPriority(), b.getPriority());
+        }
+    }
+}
+
 int compare(Jobs const& a, JobGroup const& b, bool useADeps, bool useBDeps){}
 
 int compare(DeadlinedJobs const& a, Jobs const& b, bool useADeps, bool useBDeps)
 {
     return -compare(b,a,useBDeps,useADeps);
 }
-int compare(DeadlinedJobs const& a, DeadlinedJobs const& b, bool useADeps, bool useBDeps){}
+int compare(DeadlinedJobs const& a, DeadlinedJobs const& b, bool useADeps, bool useBDeps)
+{
+    int waiting_jobs = compareInterface(a,b,useADeps,useBDeps);
+    if (abs(waiting_jobs) == 1)
+    {
+        return waiting_jobs;
+    }
+    else
+    {
+        double a_progress = 1.0 - difftime(time(0), a.getDeadline()) / a.availableTime();
+        double b_progress = 1.0 - difftime(time(0), b.getDeadline()) / b.availableTime();
+        int a_deadline_factor = 10 * a_progress * a_progress;
+        int b_deadline_factor = 10 * b_progress * b_progress;
+        int aFact = a.getMultiplicationFactor() + a_deadline_factor;
+        int bFact = b.getMultiplicationFactor() + b_deadline_factor;
+        int factorDiff = aFact - bFact;
+        if (waiting_jobs == 0)
+        {
+            if (a.getPriority() == b.getPriority())
+            {
+                if (aFact != bFact)
+                {
+                    return -compare(aFact, bFact);
+                }
+                else
+                {
+                    return 2 * compare(a.getName(), b.getName());
+                }
+            }
+            else if (a.getPriority() == nextPriority(b.getPriority()) && factorDiff < -5)
+            {
+                return 1;
+            }
+            else if (b.getPriority() == nextPriority(a.getPriority()) && factorDiff >  5)
+            {
+                return 1;
+            }
+            else
+            {
+                return compare(a.getPriority(), b.getPriority());
+            }
+        }
+        else
+        {
+            if (aFact != bFact)
+            {
+                return -compare(aFact,bFact);
+            }
+            else if (a.getPriority() == nextPriority(b.getPriority()) && factorDiff < -5)
+            {
+                return 1;
+            }
+            else if (b.getPriority() == nextPriority(a.getPriority()) && factorDiff >  5)
+            {
+                return 1;
+            }
+            else if (a.getPriority() != b.getPriority())
+            {
+                return compare(a.getPriority(), b.getPriority());
+            }
+            else
+            {
+                return 2 * compare(a.getName(), b.getName());
+            }
+        }
+    }
+}
+
 int compare(DeadlinedJobs const& a, JobGroup const& b, bool useADeps, bool useBDeps){}
 
 int compare(JobGroup const& a, Jobs const& b, bool useADeps, bool useBDeps)

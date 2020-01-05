@@ -11,6 +11,7 @@ class DeadlinedJobs: public Jobs
     public:
         DeadlinedJobs(std::string const& name, Priority priority, time_t doDate);
         time_t getDeadline() const;
+        double availableTime() const;
         virtual void update() override;
         virtual int compare_with(std::shared_ptr<const JobInterface> const&, bool = true, bool = true) const override;
         virtual int compare_with(Jobs const&, bool = true, bool = true) const override;
@@ -19,7 +20,8 @@ class DeadlinedJobs: public Jobs
     protected:
         void getNextUpdateTime();
         time_t m_deadline;
-        time_t next_change;
+        time_t m_next_change;
+        time_t m_creation_time;
 };
 
 #endif // DEADLINED_JOBS_H
