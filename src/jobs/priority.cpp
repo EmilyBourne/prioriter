@@ -8,3 +8,16 @@ int compare(Priority p1, Priority p2)
     else if (p1 == MEDIUM) return 1; // MH
     else return -1; //HM
 }
+
+Priority nextPriority(Priority p)
+{
+    switch(p)
+    {
+        case HIGH:
+        case MEDIUM: return HIGH;
+                     break;
+        case LOW:    return MEDIUM;
+                     break;
+        default:     return LOW;
+    }
+}

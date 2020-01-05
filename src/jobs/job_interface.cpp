@@ -105,3 +105,6 @@ int JobInterface::getMultiplicationFactor() const {
 void JobInterface::setMultiplicationFactor(int mf) {
     multiplication_factor=mf;
 }
+
+void JobInterface::update()
+{}

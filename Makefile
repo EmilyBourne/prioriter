@@ -19,6 +19,7 @@ TEST_DIR := $(CURDIR)/build/tests
 OBJ_DIR := $(EXEC_DIR)/intermediate
 
 TESTS =	test_jobs \
+		test_deadlined_jobs \
 		test_compare_tools
 
 EXPORTED_VARS = CXX CXXFLAGS OBJ_DIR INC TESTS TINC EXEC_DIR VERBOSE TEST_DIR

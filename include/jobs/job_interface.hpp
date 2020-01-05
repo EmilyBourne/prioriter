@@ -18,6 +18,7 @@ class JobInterface {
         virtual std::string getName() const = 0;
         virtual std::string& setName() = 0;
         virtual Priority getPriority() const = 0;
+        virtual void update();
         virtual int compare_with(std::shared_ptr<const JobInterface> const&, bool = true, bool = true) const = 0;
         virtual int compare_with(Jobs const&, bool = true, bool = true) const = 0;
         virtual int compare_with(DeadlinedJobs const&, bool = true, bool = true) const = 0;

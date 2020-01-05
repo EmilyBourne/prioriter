@@ -9,5 +9,6 @@ enum Priority
 };
 
 int compare(Priority, Priority);
+Priority nextPriority(Priority p);
 
 #endif // PRIORITY_H

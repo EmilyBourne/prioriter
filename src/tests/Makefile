@@ -17,6 +17,15 @@ else
 	@$(CXX) $(CXXFLAGS) $(TINC) $^ -o $@
 endif
 
+$(TEST_DIR)/test_deadlined_jobs: test_deadlined_jobs.cpp $(addprefix $(OBJ_DIR)/, deadlined_jobs.o job_interface.o jobs.o priority.o compare_tools.o job_comparisons.o)
+	@echo "Making     "$<
+ifeq ($(VERBOSE), 1)
+	$(CXX) $(CXXFLAGS) $(TINC) $^ -o $@
+else
+	@$(CXX) $(CXXFLAGS) $(TINC) $^ -o $@
+endif
+
 clean:
 	rm -f $(TEST_DIR)/test_jobs
 	rm -f $(TEST_DIR)/test_compare_tools
+	rm -f $(TEST_DIR)/test_deadlined_jobs
