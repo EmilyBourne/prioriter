@@ -8,18 +8,18 @@ class JobGroup: public JobInterface
 {
     public:
         JobGroup(std::string const& name, Priority priority);
-        virtual std::string getName() const;
-        virtual Priority getPriority() const;
+        virtual std::string getName() const override;
+        virtual Priority getPriority() const override;
+        virtual void update() override;
         virtual int compare_with(std::shared_ptr<const JobInterface> const&, bool = true, bool = true) const override;
         virtual int compare_with(Jobs const&, bool = true, bool = true) const override;
         virtual int compare_with(DeadlinedJobs const&, bool = true, bool = true) const override;
         virtual int compare_with(JobGroup const&, bool = true, bool = true) const override;
+        virtual void sort_waiting_jobs() override;
+        virtual bool holdingUp(JobInterface const&) const override;
     protected:
-        double getMultiplicationFactor() {return multiplication_factor; }
-        void setMultiplicationFactor(double mf) {multiplication_factor=mf; }
-        double multiplication_factor;
-        JobInterface* description;
-        //list<JobInterface*> children;
+        std::unique_ptr<JobInterface> description;
+        std::list<std::weak_ptr<JobInterface>> children;
 };
 
 #endif // JOB_GROUP_H

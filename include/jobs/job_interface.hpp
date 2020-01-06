@@ -25,9 +25,9 @@ class JobInterface {
         virtual int compare_with(JobGroup const&, bool = true, bool = true) const = 0;
         void addWaitingJob(std::weak_ptr<JobInterface>);
         bool isHoldingUpJobs() const;
-        void sort_waiting_jobs();
+        virtual void sort_waiting_jobs();
         std::weak_ptr<JobInterface> first_child() const;
-        bool holdingUp(JobInterface const&) const;
+        virtual bool holdingUp(JobInterface const&) const;
         int getMultiplicationFactor() const;
     protected:
         void setMultiplicationFactor(int mf);
