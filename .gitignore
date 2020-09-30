@@ -1,3 +1,1 @@
-build/intermediate/*.o
-build/tests/*
-!build/tests/.gitkeep
+build/*
