@@ -1,4 +1,7 @@
 # prioriter
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9843c695746145b98569eaecd8bcd560)](https://app.codacy.com/gh/EmilyBourne/prioriter?utm_source=github.com&utm_medium=referral&utm_content=EmilyBourne/prioriter&utm_campaign=Badge_Grade_Settings)
+
 System-tray based program to keep track of jobs and prioritise based on importance and urgence.
 
 ![Basic Prioriter Icon](/ExampleImages/PrioriterEmpty.png)
