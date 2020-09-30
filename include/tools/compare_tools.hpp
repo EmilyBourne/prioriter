@@ -2,15 +2,21 @@
 #define STRING_TOOLS_H
 #include <string>
 
-<template T>
-int compare(T const& i1, T const& i2)
+inline int compare(int const& i1, int const& i2)
 {
     if (i1>i2) return 1;
     else if (i1<i2) return -1;
     else return 0;
 }
 
-int compare(std::string const& str1,std::string const& str2)
+inline int compare(double const& i1, double const& i2)
+{
+    if (i1>i2) return 1;
+    else if (i1<i2) return -1;
+    else return 0;
+}
+
+inline int compare(std::string const& str1,std::string const& str2)
 {
     size_t i1(0);
     size_t i2(0);
