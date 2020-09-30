@@ -119,7 +119,7 @@ int compare(Jobs const& a, DeadlinedJobs const& b, bool useADeps, bool useBDeps)
     }
     else
     {
-        double remaining_time = difftime(time(0), b.getDeadline());
+        double remaining_time = difftime(b.getDeadline(), time(0));
         double progress = 1.0 - remaining_time / b.availableTime();
         int deadline_factor = 10 * progress * progress;
         int factorDiff = a.getMultiplicationFactor() - b.getMultiplicationFactor() - deadline_factor;
@@ -155,8 +155,8 @@ int compare(DeadlinedJobs const& a, DeadlinedJobs const& b, bool useADeps, bool 
     }
     else
     {
-        double a_progress = 1.0 - difftime(time(0), a.getDeadline()) / a.availableTime();
-        double b_progress = 1.0 - difftime(time(0), b.getDeadline()) / b.availableTime();
+        double a_progress = 1.0 - difftime(a.getDeadline(), time(0)) / a.availableTime();
+        double b_progress = 1.0 - difftime(b.getDeadline(), time(0)) / b.availableTime();
         int a_deadline_factor = 10 * a_progress * a_progress;
         int b_deadline_factor = 10 * b_progress * b_progress;
         int aFact = a.getMultiplicationFactor() + a_deadline_factor;
@@ -169,6 +169,14 @@ int compare(DeadlinedJobs const& a, DeadlinedJobs const& b, bool useADeps, bool 
                 if (aFact != bFact)
                 {
                     return -compare(aFact, bFact);
+                }
+                else if (a_progress != b_progress)
+                {
+                    return compare(a_progress,b_progress);
+                }
+                else if (a.availableTime() != b.availableTime())
+                {
+                    return compare(a.availableTime(),b.availableTime());
                 }
                 else
                 {
