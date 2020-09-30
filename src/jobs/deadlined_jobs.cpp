@@ -14,13 +14,13 @@ time_t DeadlinedJobs::getDeadline() const
 
 double DeadlinedJobs::availableTime() const
 {
-    return difftime(m_creation_time, m_deadline);
+    return difftime(m_deadline, m_creation_time);
 }
 
 void DeadlinedJobs::update()
 {
     time_t now = time(0);
-    double time_to_change = difftime(now, m_next_change);
+    double time_to_change = difftime(m_next_change, now);
     if (time_to_change > 0)
     {
         m_priority = nextPriority(m_priority);
@@ -40,7 +40,7 @@ void DeadlinedJobs::getNextUpdateTime()
                      break;
         case HIGH: factor = 2.0;
     }
-    double time_to_change = difftime(now, m_deadline) * factor;
+    double time_to_change = difftime(m_deadline, now) * factor;
     m_next_change = now + time_to_change;
 }
 
