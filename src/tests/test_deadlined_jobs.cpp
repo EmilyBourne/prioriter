@@ -111,3 +111,10 @@ TEST_CASE( "Dependence test" )
         CHECK( compare(job1, block2) < 0 );
     }
 }
+
+TEST_CASE( "Time test" )
+{
+    DeadlinedJobs job1 ("exo",LOW, time(0)+100);
+    DeadlinedJobs job2 ("exo",LOW, time(0)+200);
+    CHECK(compare(job1,job2) < 0);
+}
