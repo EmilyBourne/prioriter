@@ -114,7 +114,9 @@ TEST_CASE( "Dependence test" )
 
 TEST_CASE( "Time test" )
 {
-    DeadlinedJobs job1 ("exo",LOW, time(0)+100);
-    DeadlinedJobs job2 ("exo",LOW, time(0)+200);
-    CHECK(compare(job1,job2) < 0);
+    for (int i(0); i<3; ++i) {
+        DeadlinedJobs job1 ("exo", priorities[i], time(0)+100);
+        DeadlinedJobs job2 ("exo", priorities[i], time(0)+200);
+        CHECK(compare(job1,job2) < 0);
+    }
 }
